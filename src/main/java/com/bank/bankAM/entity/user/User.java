@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -26,29 +29,31 @@ public class User {
     )
     private Long id;
     private boolean enabled;
-    private String username;
+    private String userName;
     private String password;
-    private String firstname;
-    private String lastname;
+    private String firstName;
+    private String lastName;
     private String title;
-    private String jobtitle;
-    private String manageruserid;
-    private String createdby;
-    private LocalDate creationdate;
-    private LocalDate lastupdate;
+    private String jobTitle;
+    private String managerUserId;
+    private String createdBy;
+    @CreationTimestamp
+    private LocalDate creationDate;
+    @UpdateTimestamp
+    private LocalDate lastUpDate;
 
-    public User(boolean enabled, String username, String password, String firstname, String lastname, String title, String jobtitle, String manageruserid, String createdby, LocalDate creationdate, LocalDate lastupdate) {
+    public User(boolean enabled, String userName, String password, String firstName, String lastName, String title, String jobTitle, String managerUserId, String createdBy, LocalDate creationDate, LocalDate lastUpDate) {
         this.enabled = enabled;
-        this.username = username;
+        this.userName = userName;
         this.password = password;
-        this.firstname = firstname;
-        this.lastname = lastname;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.title = title;
-        this.jobtitle = jobtitle;
-        this.manageruserid = manageruserid;
-        this.createdby = createdby;
-        this.creationdate = creationdate;
-        this.lastupdate = lastupdate;
+        this.jobTitle = jobTitle;
+        this.managerUserId = managerUserId;
+        this.createdBy = createdBy;
+        this.creationDate = creationDate;
+        this.lastUpDate = lastUpDate;
     }
 }
 /*
