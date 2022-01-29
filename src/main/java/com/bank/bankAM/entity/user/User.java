@@ -9,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
@@ -17,17 +18,14 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @ToString
 @Table(name ="users" )
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 176565872872682782L;
 
     @Id
-    @SequenceGenerator(
-            name = "user_sequence",
-            sequenceName = "user_sequence",
-            allocationSize = 1
-    )
+
     @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "user_sequence"
+            strategy = GenerationType.IDENTITY
     )
     @Column(name = "id", nullable = false)
     private Long id;
