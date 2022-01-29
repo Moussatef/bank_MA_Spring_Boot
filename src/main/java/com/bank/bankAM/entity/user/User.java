@@ -1,5 +1,6 @@
 package com.bank.bankAM.entity.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ import java.time.LocalDate;
 @ToString
 @Table(name ="users" )
 public class User {
+
     @Id
     @SequenceGenerator(
             name = "user_sequence",
@@ -27,22 +29,50 @@ public class User {
             strategy = GenerationType.SEQUENCE,
             generator = "user_sequence"
     )
+    @Column(name = "id", nullable = false)
     private Long id;
+
+    @JsonIgnore
+    @OneToOne(targetEntity = UserContactInfo.class, mappedBy = "userId")
+    private UserContactInfo userContactInfo;
+
+    @Column(nullable = false)
     private boolean enabled;
+
+    @Column(name = "username",nullable = false)
     private String userName;
+
+    @Column(nullable = false)
     private String password;
+
+    @Column(name = "firstname",nullable = false)
     private String firstName;
+
+    @Column(name = "lastname",nullable = false)
     private String lastName;
+
     private String title;
+
     private String jobTitle;
-    private String managerUserId;
-    private String createdBy;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "manageruserid")
+    private User managerUserId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "createdby")
+    private User createdBy;
+
     @CreationTimestamp
+    @Column(name = "creationdate")
     private LocalDate creationDate;
+
     @UpdateTimestamp
+    @Column(name = "lastupdate")
     private LocalDate lastUpDate;
 
-    public User(boolean enabled, String userName, String password, String firstName, String lastName, String title, String jobTitle, String managerUserId, String createdBy, LocalDate creationDate, LocalDate lastUpDate) {
+    public User(UserContactInfo userContactInfo, boolean enabled, String userName, String password, String firstName, String lastName, String title, String jobTitle, User managerUserId, User createdBy, LocalDate creationDate, LocalDate lastUpDate) {
+        this.userContactInfo = userContactInfo;
         this.enabled = enabled;
         this.userName = userName;
         this.password = password;

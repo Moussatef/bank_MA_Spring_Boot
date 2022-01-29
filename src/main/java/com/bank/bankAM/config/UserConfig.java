@@ -13,6 +13,7 @@ public class UserConfig {
     @Bean
     CommandLineRunner commandLineRunner(UserRepository repository){
         return  args -> {
+            /*
             User user1 = new User(
                     false,
                     "Moussatef_Othman",
@@ -38,8 +39,10 @@ public class UserConfig {
                     "YS_0001",
                     LocalDate.of(1990,10,10),
                     LocalDate.of(1990,10,10)
-            );
-            repository.saveAll(List.of(user1,user2));
+            );*/
+            //repository.saveAll(List.of(user1,user2));
         };
+
+
     }
 }
