@@ -26,7 +26,7 @@ public class RoleService {
         roleRepository.save(role);
     }
 
-    public void deleteUser(Long roleID) {
+    public void deleteRole(Long roleID) {
         boolean exists = roleRepository.existsById(roleID);
         if (!exists){
             throw new IllegalStateException("Role ID : "+roleID+" is not exists");

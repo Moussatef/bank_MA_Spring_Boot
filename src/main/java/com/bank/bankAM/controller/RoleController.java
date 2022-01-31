@@ -26,5 +26,11 @@ public class RoleController {
         roleService.addNewRole(role);
     }
 
+    @DeleteMapping (path = "{id}")
+    public void deleteGroup(@PathVariable("id") Long groupId){
+        roleService.deleteRole(groupId);
+
+    }
+
 
 }

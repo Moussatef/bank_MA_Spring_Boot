@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Table(name = "user_member_shep")
+@Table(name = "usermembershep")
 public class UserMemberShip  implements Serializable {
 
     private static final long serialVersionUID = 17665765754546767L;
