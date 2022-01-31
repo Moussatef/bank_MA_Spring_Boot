@@ -24,7 +24,7 @@ public class UserMemberShipController {
     }
 
     @PostMapping
-    public void addNewUserMembership(@PathVariable UserMemberShip userMemberShip){
+    public void addNewUserMembership(@RequestBody UserMemberShip userMemberShip){
         userMemberShipService.addUserMemberShip(userMemberShip);
     }
 

@@ -26,11 +26,11 @@ public class UserMemberShip  implements Serializable {
     @Column(nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "userid")
     private User userId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "roleid")
     private Role roleId;
 
