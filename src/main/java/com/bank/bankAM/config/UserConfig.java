@@ -1,13 +1,7 @@
 package com.bank.bankAM.config;
 
-import com.bank.bankAM.entity.user.User;
-import com.bank.bankAM.repository.UserRepository;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.time.LocalDate;
-import java.util.List;
 @Configuration
 public class UserConfig {
     //@Bean

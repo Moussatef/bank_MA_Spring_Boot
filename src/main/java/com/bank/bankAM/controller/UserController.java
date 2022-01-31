@@ -1,6 +1,6 @@
-package com.bank.bankAM.controller.user;
+package com.bank.bankAM.controller;
 
-import com.bank.bankAM.entity.user.User;
+import com.bank.bankAM.entity.User;
 import com.bank.bankAM.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +24,7 @@ public class UserController {
 
     @PostMapping
     public void addNewUser(@RequestBody User user){
-       // userService.addNewUser(user);
+        userService.addNewUser(user);
     }
 
 

@@ -1,6 +1,6 @@
 package com.bank.bankAM.repository;
 
-import com.bank.bankAM.entity.user.User;
+import com.bank.bankAM.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

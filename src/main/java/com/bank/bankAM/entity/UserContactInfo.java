@@ -1,4 +1,4 @@
-package com.bank.bankAM.entity.user;
+package com.bank.bankAM.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;

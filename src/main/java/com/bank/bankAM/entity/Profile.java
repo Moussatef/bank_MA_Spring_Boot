@@ -1,6 +1,5 @@
-package com.bank.bankAM.entity.profile;
+package com.bank.bankAM.entity;
 
-import com.bank.bankAM.entity.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
