@@ -10,9 +10,9 @@ import java.time.LocalDate;
 import java.util.List;
 @Configuration
 public class UserConfig {
-    @Bean
-    CommandLineRunner commandLineRunner(UserRepository repository){
-        return  args -> {
+    //@Bean
+    //CommandLineRunner commandLineRunner(UserRepository repository){
+      //  return  args -> {
             /*
             User user1 = new User(
                     false,
@@ -41,8 +41,8 @@ public class UserConfig {
                     LocalDate.of(1990,10,10)
             );*/
             //repository.saveAll(List.of(user1,user2));
-        };
+       // };
 
 
-    }
+    //}
 }

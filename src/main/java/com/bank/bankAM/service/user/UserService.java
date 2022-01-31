@@ -22,15 +22,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void addNewUser(User user) {
 
-        Optional<User> userOptional =  userRepository.findUserName(user.getUserName());
-
-        if (userOptional.isPresent()){
-            throw new IllegalStateException("Username is already taken");
-        }
-        userRepository.save(user);
-    }
 
     public void deleteUser(Long userId) {
        boolean exists = userRepository.existsById(userId);

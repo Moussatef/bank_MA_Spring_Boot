@@ -46,10 +46,10 @@ public class Profile implements Serializable {
     private LocalDate creationDate;
 
     @UpdateTimestamp
-    @Column(name = "creationdate")
+    @Column(name = "lastupdatedate")
     private LocalDate lastUpdateDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lastupdateby")
     private User lastUpdateBy;
 
