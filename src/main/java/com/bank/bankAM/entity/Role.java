@@ -9,6 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "role")
@@ -20,17 +21,12 @@ public class Role implements Serializable {
     private static final long serialVersionUID = 1876875764758L;
 
     @Id
-    @SequenceGenerator(
-            name = "user_sequence",
-            sequenceName = "user_sequence",
-            allocationSize = 1
-    )
+
     @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "user_sequence"
+            strategy = GenerationType.IDENTITY
     )
     @Column(name = "id", nullable = false)
-    private Long id;
+    private long id;
 
     private String name;
 
@@ -39,7 +35,7 @@ public class Role implements Serializable {
     @Column(name = "description",columnDefinition="TEXT")
     private String description;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "createdby")
     private User createdBy;
 
@@ -48,6 +44,9 @@ public class Role implements Serializable {
 
     @UpdateTimestamp
     private LocalDate lastUpdate;
+
+    //@OneToMany
+    //private List<UserMemberShip> userMemberShip;
 
 
 

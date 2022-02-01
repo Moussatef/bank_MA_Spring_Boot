@@ -1,6 +1,7 @@
 package com.bank.bankAM.service.user;
 
 import com.bank.bankAM.entity.User;
+import com.bank.bankAM.entity.UserMemberShip;
 import com.bank.bankAM.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,11 @@ public class UserService {
 
     public List<User> getUser(){
         return userRepository.findAll();
+    }
+
+
+    public User getUser(long id){
+        return userRepository.findById(id).orElse(null);
     }
 
     public void addNewUser(User user) {

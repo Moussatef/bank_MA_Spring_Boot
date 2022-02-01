@@ -11,6 +11,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
@@ -27,7 +28,7 @@ public class User implements Serializable {
             strategy = GenerationType.IDENTITY
     )
     @Column(name = "id", nullable = false)
-    private Long id;
+    private long id;
 
     @JsonIgnore
     @OneToOne(targetEntity = UserContactInfo.class, mappedBy = "userId")
@@ -67,6 +68,9 @@ public class User implements Serializable {
     @UpdateTimestamp
     @Column(name = "lastupdate")
     private LocalDate lastUpDate;
+
+   // @OneToMany()
+   // private List<UserMemberShip> userMemberShip;
 
     public User(UserContactInfo userContactInfo, boolean enabled, String userName, String password, String firstName, String lastName, String title, String jobTitle, User managerUserId, User createdBy, LocalDate creationDate, LocalDate lastUpDate) {
         this.userContactInfo = userContactInfo;

@@ -1,5 +1,7 @@
 package com.bank.bankAM.service.user;
 
+import com.bank.bankAM.entity.Profile;
+import com.bank.bankAM.entity.User;
 import com.bank.bankAM.entity.UserMemberShip;
 import com.bank.bankAM.repository.UserMemberShipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,10 @@ public class UserMemberShipService {
     @Autowired
     public UserMemberShipService(UserMemberShipRepository userMemberShipRepository) {
         this.userMemberShipRepository = userMemberShipRepository;
+    }
+
+    public UserMemberShip getUserMemberShip(long id){
+        return userMemberShipRepository.findById(id).orElse(null);
     }
 
     public List<UserMemberShip> userMemberShipRepositoryList(){

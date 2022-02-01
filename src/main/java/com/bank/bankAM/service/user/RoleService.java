@@ -1,5 +1,6 @@
 package com.bank.bankAM.service.user;
 
+import com.bank.bankAM.entity.Profile;
 import com.bank.bankAM.entity.Role;
 import com.bank.bankAM.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,10 @@ public class RoleService {
 
     public void addNewRole(Role role){
         roleRepository.save(role);
+    }
+
+    public Role getRole(long id){
+        return roleRepository.findById(id).orElse(null);
     }
 
     public void deleteRole(Long roleID) {

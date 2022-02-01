@@ -10,6 +10,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "groups")
@@ -25,7 +26,7 @@ public class Group implements Serializable {
     @GeneratedValue(
             strategy = GenerationType.IDENTITY
     )
-    private Long id;
+    private long id;
     @Column(name = "name", length = 125)
     private String name;
 
@@ -47,6 +48,9 @@ public class Group implements Serializable {
     @UpdateTimestamp
     @Column(name = "lastupdate")
     private LocalDate lastUpdate;
+
+ //   @OneToMany()
+ //   private List<UserMemberShip> userMemberShip;
 
 
 

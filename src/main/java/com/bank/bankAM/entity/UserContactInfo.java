@@ -13,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Table(name = "UserContactInfo")
+@Table(name = "usercontactinfo")
 public class UserContactInfo {
 
     @Id
@@ -27,7 +27,7 @@ public class UserContactInfo {
             generator = "user_sequence"
     )
     @Column(name = "id", nullable = false)
-    private Long id;
+    private long id;
 
     @JsonIgnore
     @OneToOne(targetEntity = User.class,cascade = CascadeType.ALL)
