@@ -1,5 +1,6 @@
 package com.bank.bankAM.controller;
 
+import com.bank.bankAM.entity.Group;
 import com.bank.bankAM.entity.User;
 import com.bank.bankAM.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,10 @@ public class UserController {
         userService.addNewUser(user);
     }
 
+    @GetMapping(path = "/get/{id}")
+    public User getUser(@PathVariable("id") long id){
+        return userService.getUser(id);
+    }
 
 
     @DeleteMapping(path = "{userId}")

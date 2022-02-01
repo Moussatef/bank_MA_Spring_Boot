@@ -1,6 +1,7 @@
 package com.bank.bankAM.service.user;
 
 import com.bank.bankAM.entity.Group;
+import com.bank.bankAM.entity.UserMemberShip;
 import com.bank.bankAM.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,10 @@ public class GroupService {
 
     public List<Group> groups(){
         return groupRepository.findAll();
+    }
+
+    public Group getGroup(long id){
+        return groupRepository.findById(id).orElse(null);
     }
 
     public void addNewGroup(Group group){

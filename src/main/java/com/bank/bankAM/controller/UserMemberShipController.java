@@ -1,5 +1,6 @@
 package com.bank.bankAM.controller;
 
+import com.bank.bankAM.entity.Group;
 import com.bank.bankAM.entity.UserMemberShip;
 import com.bank.bankAM.service.user.UserMemberShipService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,11 @@ public class UserMemberShipController {
     @GetMapping
     public List<UserMemberShip> getAllUserMemberShip(){
         return userMemberShipService.userMemberShipRepositoryList();
+    }
+
+    @GetMapping(path = "/get/{id}")
+    public UserMemberShip getUserMemberShip(@PathVariable("id") long id){
+        return userMemberShipService.getUserMemberShip(id);
     }
 
     @PostMapping
