@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -17,14 +18,14 @@ public class UserDTO {
 
     private UserContactInfo userContactInfo;
     private boolean enabled;
-    private String username;
+    private String userName;
     private String password;
-    private String firstname;
-    private String lastname;
+    private String firstName;
+    private String lastName;
     private String title;
     private String jobTitle;
     private User managerUserId;
     private User createdBy;
-    private LocalDateTime creationDate;
-    private LocalDateTime lastUpdate;
+    private LocalDate creationDate;
+    private LocalDate lastUpDate;
 }
