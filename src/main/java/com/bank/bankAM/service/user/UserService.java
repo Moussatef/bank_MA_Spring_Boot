@@ -1,5 +1,7 @@
 package com.bank.bankAM.service.user;
 
+import com.bank.bankAM.dto.model.UserDTO;
+import com.bank.bankAM.dto.service.IMapClassWithDto;
 import com.bank.bankAM.entity.User;
 import com.bank.bankAM.entity.UserMemberShip;
 import com.bank.bankAM.repository.UserRepository;
@@ -10,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService implements IUserService {
 
     private final UserRepository userRepository;
 
@@ -19,15 +21,21 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> getUser(){
-        return userRepository.findAll();
+    @Autowired
+    IMapClassWithDto<User, UserDTO> userMapping;
+
+    @Override
+    public List<UserDTO> getAllUsers(){
+        List<User> userList = userRepository.findAll();
+        return userMapping.convertListToListDto(userList,UserDTO.class);
     }
 
-
-    public User getUser(long id){
-        return userRepository.findById(id).orElse(null);
+    @Override
+    public UserDTO getUser(long id){
+        User user = userRepository.findById(id).orElse(null);
+        return userMapping.convertToDto(user,UserDTO.class);
     }
-
+    @Override
     public void addNewUser(User user) {
 
         Optional<User> userOptional =  userRepository.findUserName(user.getUserName());
@@ -37,7 +45,7 @@ public class UserService {
         }
         userRepository.save(user);
     }
-
+    @Override
     public void deleteUser(Long userId) {
        boolean exists = userRepository.existsById(userId);
        if (!exists){

@@ -1,5 +1,6 @@
 package com.bank.bankAM.controller;
 
+import com.bank.bankAM.dto.model.UserDTO;
 import com.bank.bankAM.entity.Group;
 import com.bank.bankAM.entity.User;
 import com.bank.bankAM.service.user.UserService;
@@ -19,8 +20,8 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getUser(){
-        return userService.getUser();
+    public List<UserDTO> getAllUser(){
+        return userService.getAllUsers();
     }
 
     @PostMapping
@@ -29,7 +30,7 @@ public class UserController {
     }
 
     @GetMapping(path = "/get/{id}")
-    public User getUser(@PathVariable("id") long id){
+    public UserDTO getUser(@PathVariable("id") long id){
         return userService.getUser(id);
     }
 

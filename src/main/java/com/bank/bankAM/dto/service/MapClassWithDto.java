@@ -3,15 +3,19 @@ package com.bank.bankAM.dto.service;
 import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class MapClassWithDto<E,D> implements IMapClassWithDto<E,D> {
 
-private ModelMapper modelMapper;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public D convertToDto(E entity, Class<D> dtoClass) {
