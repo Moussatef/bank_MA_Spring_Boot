@@ -38,10 +38,5 @@ public class ProfileMember {
     @JoinColumn(name = "roleid")
     private Role roleId;
 
-    public ProfileMember(Profile profileId, User userId, Group groupId, Role roleId) {
-        this.profileId = profileId;
-        this.userId = userId;
-        this.groupId = groupId;
-        this.roleId = roleId;
-    }
+
 }

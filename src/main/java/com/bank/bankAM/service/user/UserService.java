@@ -47,6 +47,10 @@ public class UserService implements IUserService {
 
         User newUser = userRepository.save(user);
         UserDTO newUser_dto = userMapping.convertToDto(newUser,UserDTO.class);
+        User createdBy = userRepository.findById(newUser_dto.getCreatedBy().getId()).orElse(null);
+        User userManager = userRepository.findById(newUser_dto.getManagerUserId().getId()).orElse(null);
+        newUser_dto.setCreatedBy(createdBy);
+        newUser_dto.setManagerUserId(userManager);
         return newUser_dto;
 
 

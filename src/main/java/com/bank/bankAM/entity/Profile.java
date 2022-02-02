@@ -55,14 +55,6 @@ public class Profile implements Serializable {
 
 
 
-    public Profile(boolean isDefault, String name, String description, User createdBy, LocalDate creationDate, LocalDate lastUpdateDate, User lastUpdateBy) {
-        this.isDefault = isDefault;
-        this.name = name;
-        this.description = description;
-        this.createdBy = createdBy;
-        this.creationDate = creationDate;
-        this.lastUpdateDate = lastUpdateDate;
-        this.lastUpdateBy = lastUpdateBy;
-    }
+
 }
 

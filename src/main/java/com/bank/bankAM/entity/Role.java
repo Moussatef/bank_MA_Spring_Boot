@@ -9,7 +9,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Table(name = "role")
@@ -48,14 +47,4 @@ public class Role implements Serializable {
     //@OneToMany
     //private List<UserMemberShip> userMemberShip;
 
-
-
-    public Role(String name, String displayName, String description, User createdBy, LocalDate creationDate, LocalDate lastUpdate) {
-        this.name = name;
-        this.displayName = displayName;
-        this.description = description;
-        this.createdBy = createdBy;
-        this.creationDate = creationDate;
-        this.lastUpdate = lastUpdate;
-    }
 }

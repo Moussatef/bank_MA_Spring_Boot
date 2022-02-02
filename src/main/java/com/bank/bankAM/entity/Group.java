@@ -10,7 +10,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Table(name = "groups")
@@ -53,14 +52,4 @@ public class Group implements Serializable {
  //   private List<UserMemberShip> userMemberShip;
 
 
-
-    public Group(String name, String parentPath, String displayName, String description, User createdBy, LocalDate creationDate, LocalDate lastUpdate) {
-        this.name = name;
-        this.parentPath = parentPath;
-        this.displayName = displayName;
-        this.description = description;
-        this.createdBy = createdBy;
-        this.creationDate = creationDate;
-        this.lastUpdate = lastUpdate;
-    }
 }
