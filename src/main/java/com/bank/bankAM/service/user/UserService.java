@@ -53,4 +53,9 @@ public class UserService implements IUserService {
        }
        userRepository.deleteById(userId);
     }
+
+    @Override
+    public UserDTO updateUser(long id, UserDTO userDTO) {
+        return null;
+    }
 }

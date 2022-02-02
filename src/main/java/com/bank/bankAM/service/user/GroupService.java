@@ -52,8 +52,10 @@ public class GroupService implements IGroupService {
         return groupMapper.convertToDto(group,GroupDTO.class);
     }
 
-
-
+    @Override
+    public GroupDTO updateGroup(long id, GroupDTO groupDTO) {
+        return null;
+    }
 
 
 }

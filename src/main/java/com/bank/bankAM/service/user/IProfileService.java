@@ -1,8 +1,6 @@
 package com.bank.bankAM.service.user;
 
 import com.bank.bankAM.dto.model.ProfileDTO;
-import com.bank.bankAM.dto.model.ProfileMemberDTO;
-import com.bank.bankAM.entity.Profile;
 
 import java.util.List;
 

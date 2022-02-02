@@ -1,6 +1,5 @@
 package com.bank.bankAM.service.user;
 
-import com.bank.bankAM.dto.model.RoleDTO;
 import com.bank.bankAM.dto.model.UserMemberShipDTO;
 
 import java.util.List;
