@@ -25,8 +25,8 @@ public class UserController {
     }
 
     @PostMapping
-    public void addNewUser(@RequestBody User user){
-        userService.addNewUser(user);
+    public UserDTO addNewUser(@RequestBody UserDTO user){
+       return userService.addNewUser(user);
     }
 
     @GetMapping(path = "/get/{id}")

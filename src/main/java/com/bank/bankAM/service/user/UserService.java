@@ -36,14 +36,21 @@ public class UserService implements IUserService {
         return userMapping.convertToDto(user,UserDTO.class);
     }
     @Override
-    public void addNewUser(User user) {
+    public UserDTO addNewUser(UserDTO userDTO) {
 
+        User user = userMapping.convertToEntity(userDTO,User.class);
         Optional<User> userOptional =  userRepository.findUserName(user.getUserName());
 
         if (userOptional.isPresent()){
             throw new IllegalStateException("Username is already taken");
         }
-        userRepository.save(user);
+
+        User newUser = userRepository.save(user);
+        UserDTO newUser_dto = userMapping.convertToDto(newUser,UserDTO.class);
+        return newUser_dto;
+
+
+
     }
     @Override
     public void deleteUser(Long userId) {

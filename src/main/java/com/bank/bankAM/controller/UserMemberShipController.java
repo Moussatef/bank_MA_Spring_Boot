@@ -1,6 +1,6 @@
 package com.bank.bankAM.controller;
 
-import com.bank.bankAM.entity.Group;
+import com.bank.bankAM.dto.model.UserMemberShipDTO;
 import com.bank.bankAM.entity.UserMemberShip;
 import com.bank.bankAM.service.user.UserMemberShipService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +25,13 @@ public class UserMemberShipController {
     }
 
     @GetMapping(path = "/get/{id}")
-    public UserMemberShip getUserMemberShip(@PathVariable("id") long id){
+    public UserMemberShipDTO getUserMemberShip(@PathVariable("id") long id){
         return userMemberShipService.getUserMemberShip(id);
     }
 
     @PostMapping
-    public void addNewUserMembership(@RequestBody UserMemberShip userMemberShip){
-        userMemberShipService.addUserMemberShip(userMemberShip);
+    public UserMemberShipDTO addNewUserMembership(@RequestBody UserMemberShipDTO userMemberShip){
+        return userMemberShipService.addNewUserMemberShip(userMemberShip);
     }
 
     @DeleteMapping(path = "{id}")

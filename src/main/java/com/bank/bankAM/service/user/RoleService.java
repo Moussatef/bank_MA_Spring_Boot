@@ -1,7 +1,6 @@
 package com.bank.bankAM.service.user;
 
 import com.bank.bankAM.dto.model.RoleDTO;
-import com.bank.bankAM.dto.model.UserDTO;
 import com.bank.bankAM.dto.service.IMapClassWithDto;
 import com.bank.bankAM.entity.Role;
 import com.bank.bankAM.entity.User;
@@ -52,10 +51,7 @@ public class RoleService implements IRoleService {
         RoleDTO newRoleDto = roleMapper.convertToDto(newRole,RoleDTO.class);
         User getCreatedBy = this.userRepository.findById(newRoleDto.getCreatedBy().getId()).orElse(null);
         newRoleDto.setCreatedBy(getCreatedBy);
-
         return newRoleDto;
-
-
     }
 
     @Override
