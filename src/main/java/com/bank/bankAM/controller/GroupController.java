@@ -1,5 +1,6 @@
 package com.bank.bankAM.controller;
 
+import com.bank.bankAM.dto.model.GroupDTO;
 import com.bank.bankAM.entity.Group;
 import com.bank.bankAM.service.user.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,22 +20,22 @@ public class GroupController {
     }
 
     @GetMapping
-    public List<Group> getAllGroups(){
-        return groupService.groups();
+    public List<GroupDTO> getAllGroups(){
+        return groupService.groupList();
     }
 
     @GetMapping(path = "/get/{id}")
-    public Group getGroup(@PathVariable("id") long id){
+    public GroupDTO getGroup(@PathVariable("id") long id){
         return groupService.getGroup(id);
     }
 
     @PostMapping
-    public void addNewGroup(@RequestBody Group group){
-        groupService.addNewGroup(group);
+    public void addNewGroup(@RequestBody GroupDTO group){
+        groupService.add(group);
     }
 
     @DeleteMapping(path = "{groupId}")
     public void deleteGroup(@PathVariable("groupId") Long groupId){
-        groupService.deleteGeoup(groupId);
+        groupService.delete(groupId);
     }
 }
