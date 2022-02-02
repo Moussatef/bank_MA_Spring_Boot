@@ -35,7 +35,7 @@ public class Role implements Serializable {
     @Column(name = "description",columnDefinition="TEXT")
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "createdby")
     private User createdBy;
 

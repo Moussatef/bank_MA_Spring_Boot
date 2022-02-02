@@ -1,5 +1,6 @@
 package com.bank.bankAM.controller;
 
+import com.bank.bankAM.dto.model.RoleDTO;
 import com.bank.bankAM.entity.Group;
 import com.bank.bankAM.entity.Role;
 import com.bank.bankAM.service.user.RoleService;
@@ -19,16 +20,16 @@ public class RoleController {
     }
 
     @GetMapping
-    public List<Role> getRoles(){
+    public List<RoleDTO> getRoles(){
         return roleService.roleList();
     }
     @GetMapping(path = "/get/{id}")
-    public Role getRole(@PathVariable("id") long id){
+    public RoleDTO getRole(@PathVariable("id") long id){
         return roleService.getRole(id);
     }
     @PostMapping
-    public void addNewRole(@RequestBody Role role){
-        roleService.addNewRole(role);
+    public RoleDTO addNewRole(@RequestBody RoleDTO role){
+       return roleService.addNewRole(role);
     }
 
     @DeleteMapping (path = "{id}")

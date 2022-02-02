@@ -21,6 +21,8 @@ public class GroupService implements IGroupService {
 
     @Autowired
     IMapClassWithDto<Group,GroupDTO> groupMapper;
+
+
     public List<Group> groups(){
         return groupRepository.findAll();
     }
