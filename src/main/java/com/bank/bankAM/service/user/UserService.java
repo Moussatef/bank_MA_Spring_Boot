@@ -2,21 +2,31 @@ package com.bank.bankAM.service.user;
 
 import com.bank.bankAM.dto.model.UserDTO;
 import com.bank.bankAM.dto.service.IMapClassWithDto;
+import com.bank.bankAM.entity.Role;
 import com.bank.bankAM.entity.User;
 import com.bank.bankAM.entity.UserMemberShip;
+import com.bank.bankAM.repository.UserMemberShipRepository;
 import com.bank.bankAM.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-@Service @RequiredArgsConstructor
-public class UserService implements IUserService {
+@Service @RequiredArgsConstructor @Slf4j
+public class UserService implements IUserService , UserDetailsService {
 
     private final UserRepository userRepository;
+    private final UserMemberShipRepository userMemberShipRepository;
 
     @Autowired
     IMapClassWithDto<User, UserDTO> userMapping;
@@ -72,5 +82,33 @@ public class UserService implements IUserService {
     @Override
     public UserDTO updateUser(long id, UserDTO userDTO) {
         return null;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+
+        if (userRepository.findUserName(username).isPresent()){
+            User user = userRepository.findUserName(username).get();
+            List<UserMemberShip> userMemberShip = userMemberShipRepository.findUserMemberShipByUserId(user);
+
+            //List<UserMemberShip> userMemberShipList = userMemberShipRepository
+            //return userMemberShip;
+
+
+
+            return new org.springframework.security.core.userdetails.User(user.getUserName(),user.getPassword(),authorities);
+
+        }else throw  new UsernameNotFoundException("This UserName "+username+" Not found ");
+
+
+    }
+
+    public List<UserMemberShip> testList(String username){
+        log.info(username);
+        User user = userRepository.findUserName(username).orElse(null);
+        List<UserMemberShip> userMemberShip = userMemberShipRepository.findUserMemberShipByUserId(user);
+        //List<UserMemberShip> userMemberShipList = userMemberShipRepository
+        return userMemberShip;
     }
 }

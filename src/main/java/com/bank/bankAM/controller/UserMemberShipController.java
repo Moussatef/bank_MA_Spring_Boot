@@ -38,4 +38,6 @@ public class UserMemberShipController {
     public void deleteUserMembership(@PathVariable("id") Long id){
         userMemberShipService.deleteUserMember(id);
     }
+
+
 }

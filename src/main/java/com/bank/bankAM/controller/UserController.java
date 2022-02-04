@@ -3,6 +3,7 @@ package com.bank.bankAM.controller;
 import com.bank.bankAM.dto.model.UserDTO;
 import com.bank.bankAM.entity.Group;
 import com.bank.bankAM.entity.User;
+import com.bank.bankAM.entity.UserMemberShip;
 import com.bank.bankAM.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -41,4 +42,13 @@ public class UserController {
         userService.deleteUser(userId);
     }
 
+    @PostMapping(path = "/test")
+    public List<UserMemberShip> getList(@RequestBody UserDTO user){
+        return userService.testList(user.getUserName());
+    }
+
+    @GetMapping(path = "/test/{username}")
+    public List<UserMemberShip> getListt(@PathVariable("username") String username){
+        return userService.testList(username);
+    }
 }
