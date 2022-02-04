@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 public class UserContactInfoDTO {
 
-    @JsonIgnore
+
     private User userId;
     private String email;
     private String phone;

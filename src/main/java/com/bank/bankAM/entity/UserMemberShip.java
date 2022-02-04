@@ -26,19 +26,19 @@ public class UserMemberShip  implements Serializable {
     @Column(nullable = false)
     private long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "userid")
     private User userId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "roleid", referencedColumnName = "id")
     private Role roleId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "groupid")
     private Group groupId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "assignedby")
     private User assignedBy;
 

@@ -30,7 +30,7 @@ public class User implements Serializable {
     private long id;
 
     @JsonIgnore
-    @OneToOne(targetEntity = UserContactInfo.class, mappedBy = "userId")
+    @OneToOne(targetEntity = UserContactInfo.class, mappedBy = "userId",cascade = CascadeType.ALL)
     private UserContactInfo userContactInfo;
 
     @Column(nullable = false)

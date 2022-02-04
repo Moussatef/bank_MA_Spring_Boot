@@ -5,21 +5,18 @@ import com.bank.bankAM.dto.service.IMapClassWithDto;
 import com.bank.bankAM.entity.User;
 import com.bank.bankAM.entity.UserMemberShip;
 import com.bank.bankAM.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Service @RequiredArgsConstructor
 public class UserService implements IUserService {
 
     private final UserRepository userRepository;
-
-    @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     @Autowired
     IMapClassWithDto<User, UserDTO> userMapping;
@@ -47,10 +44,15 @@ public class UserService implements IUserService {
 
         User newUser = userRepository.save(user);
         UserDTO newUser_dto = userMapping.convertToDto(newUser,UserDTO.class);
-        User createdBy = userRepository.findById(newUser_dto.getCreatedBy().getId()).orElse(null);
+
+        Long idUser = newUser_dto.getCreatedBy().getId() ;
+
+        User createdBy = userRepository.findById(idUser).orElse(null);
         User userManager = userRepository.findById(newUser_dto.getManagerUserId().getId()).orElse(null);
         newUser_dto.setCreatedBy(createdBy);
         newUser_dto.setManagerUserId(userManager);
+
+
         return newUser_dto;
 
 

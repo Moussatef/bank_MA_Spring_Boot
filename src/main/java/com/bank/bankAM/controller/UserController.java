@@ -5,6 +5,7 @@ import com.bank.bankAM.entity.Group;
 import com.bank.bankAM.entity.User;
 import com.bank.bankAM.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,8 +21,8 @@ public class UserController {
     }
 
     @GetMapping
-    public List<UserDTO> getAllUser(){
-        return userService.getAllUsers();
+    public ResponseEntity<List<UserDTO>> getAllUser(){
+        return ResponseEntity.ok().body(userService.getAllUsers());
     }
 
     @PostMapping

@@ -6,12 +6,13 @@ import com.bank.bankAM.entity.User;
 import com.bank.bankAM.entity.UserMemberShip;
 import com.bank.bankAM.repository.UserMemberShipRepository;
 import com.bank.bankAM.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service @RequiredArgsConstructor
 public class UserMemberShipService implements IUserMemberShipService {
 
     private final UserMemberShipRepository userMemberShipRepository;
@@ -19,12 +20,6 @@ public class UserMemberShipService implements IUserMemberShipService {
 
     @Autowired
     IMapClassWithDto<UserMemberShip, UserMemberShipDTO> userMemberMapper;
-
-    @Autowired
-    public UserMemberShipService(UserMemberShipRepository userMemberShipRepository, UserRepository userRepository) {
-        this.userMemberShipRepository = userMemberShipRepository;
-        this.userRepository = userRepository;
-    }
 
     @Override
     public List<UserMemberShipDTO> userMemberShipList() {

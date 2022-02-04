@@ -39,6 +39,7 @@ public class UserContactInfoService implements  IUserContactInfoService{
     @Override
     public UserContactInfoDTO addNewUserContactInfo(UserContactInfoDTO user) {
         UserContactInfo userContactInfo = contactMapper.convertToEntity(user,UserContactInfo.class);
+
         UserContactInfo newUserContact = userContactInfoRepository.save(userContactInfo);
         return contactMapper.convertToDto(newUserContact,UserContactInfoDTO.class);
     }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Data
@@ -14,24 +15,20 @@ import javax.persistence.*;
 @AllArgsConstructor
 @ToString
 @Table(name = "usercontactinfo")
-public class UserContactInfo {
+public class UserContactInfo implements Serializable {
+
+    private static final Long serialVersionUID = 314325436547L;
 
     @Id
-    @SequenceGenerator(
-            name = "user_sequence",
-            sequenceName = "user_sequence",
-            allocationSize = 1
-    )
     @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "user_sequence"
+            strategy = GenerationType.IDENTITY
     )
     @Column(name = "id", nullable = false)
     private long id;
 
     @JsonIgnore
-    @OneToOne(targetEntity = User.class,cascade = CascadeType.ALL)
-    @JoinColumn(name = "userid", referencedColumnName = "id")
+    @OneToOne(targetEntity = User.class)
+    @JoinColumn(name = "userid",referencedColumnName  ="id",nullable = false,unique = true)
     private User userId;
 
     @Column(
