@@ -14,6 +14,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -48,9 +49,13 @@ public class UserService implements IUserService , UserDetailsService {
         User user = userMapping.convertToEntity(userDTO,User.class);
         Optional<User> userOptional =  userRepository.findUserName(user.getUserName());
 
+
         if (userOptional.isPresent()){
             throw new IllegalStateException("Username is already taken");
         }
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder() ;
+        String passwordBc = encoder.encode(user.getPassword());
+        user.setPassword(passwordBc);
 
         User newUser = userRepository.save(user);
         UserDTO newUser_dto = userMapping.convertToDto(newUser,UserDTO.class);
@@ -66,8 +71,6 @@ public class UserService implements IUserService , UserDetailsService {
         newUser_dto.setManagerUserId(userManager);
 
         return newUser_dto;
-
-
 
     }
     @Override
@@ -87,18 +90,14 @@ public class UserService implements IUserService , UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-
         if (userRepository.findUserName(username).isPresent()){
             User user = userRepository.findUserName(username).get();
             List<UserMemberShip> userMemberShip = userMemberShipRepository.findUserMemberShipByUserId(user);
-
-            //List<UserMemberShip> userMemberShipList = userMemberShipRepository
-            //return userMemberShip;
-
-
+            userMemberShip.forEach(role ->{
+                authorities.add(new SimpleGrantedAuthority(role.getRoleId().getName()));
+            });
 
             return new org.springframework.security.core.userdetails.User(user.getUserName(),user.getPassword(),authorities);
-
         }else throw  new UsernameNotFoundException("This UserName "+username+" Not found ");
 
 
@@ -107,8 +106,7 @@ public class UserService implements IUserService , UserDetailsService {
     public List<UserMemberShip> testList(String username){
         log.info(username);
         User user = userRepository.findUserName(username).orElse(null);
-        List<UserMemberShip> userMemberShip = userMemberShipRepository.findUserMemberShipByUserId(user);
         //List<UserMemberShip> userMemberShipList = userMemberShipRepository
-        return userMemberShip;
+        return userMemberShipRepository.findUserMemberShipByUserId(user);
     }
 }
