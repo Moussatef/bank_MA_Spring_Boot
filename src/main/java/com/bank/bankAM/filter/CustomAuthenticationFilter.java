@@ -2,6 +2,7 @@ package com.bank.bankAM.filter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,7 +19,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.stream.Collectors;
-
+@Slf4j
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private  final AuthenticationManager authenticationManager;
 
@@ -30,6 +31,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         String username=request.getParameter("username");
         String password= request.getParameter("password");
+        log.info("username is : {}",username); log.info("password is : {}",password);
         UsernamePasswordAuthenticationToken authenticationToken= new UsernamePasswordAuthenticationToken(username,password);
         return authenticationManager.authenticate(authenticationToken);
     }
@@ -37,7 +39,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
         User user = (User)authentication.getPrincipal();
-        Algorithm algorithm = Algorithm.HMAC256("moussatef".getBytes());
+        Algorithm algorithm = Algorithm.HMAC256("moussatef".getBytes(StandardCharsets.UTF_8));
         String access_token = JWT.create()
                 .withSubject(user.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis()+ 10 * 60 * 1000))

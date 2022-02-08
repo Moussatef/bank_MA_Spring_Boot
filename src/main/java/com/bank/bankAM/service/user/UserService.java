@@ -2,7 +2,6 @@ package com.bank.bankAM.service.user;
 
 import com.bank.bankAM.dto.model.UserDTO;
 import com.bank.bankAM.dto.service.IMapClassWithDto;
-import com.bank.bankAM.entity.Role;
 import com.bank.bankAM.entity.User;
 import com.bank.bankAM.entity.UserMemberShip;
 import com.bank.bankAM.repository.UserMemberShipRepository;
@@ -14,10 +13,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -28,6 +26,7 @@ public class UserService implements IUserService , UserDetailsService {
 
     private final UserRepository userRepository;
     private final UserMemberShipRepository userMemberShipRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     IMapClassWithDto<User, UserDTO> userMapping;
@@ -43,6 +42,7 @@ public class UserService implements IUserService , UserDetailsService {
         User user = userRepository.findById(id).orElse(null);
         return userMapping.convertToDto(user,UserDTO.class);
     }
+
     @Override
     public UserDTO addNewUser(UserDTO userDTO) {
 
@@ -53,9 +53,8 @@ public class UserService implements IUserService , UserDetailsService {
         if (userOptional.isPresent()){
             throw new IllegalStateException("Username is already taken");
         }
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder() ;
-        String passwordBc = encoder.encode(user.getPassword());
-        user.setPassword(passwordBc);
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         User newUser = userRepository.save(user);
         UserDTO newUser_dto = userMapping.convertToDto(newUser,UserDTO.class);

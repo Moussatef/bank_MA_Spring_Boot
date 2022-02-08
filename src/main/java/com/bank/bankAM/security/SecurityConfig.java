@@ -1,5 +1,7 @@
 package com.bank.bankAM.security;
 
+import com.bank.bankAM.filter.CustomAuthenticationFilter;
+import com.bank.bankAM.filter.CustomAuthorisationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +12,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration @EnableWebSecurity @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -24,7 +29,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests().anyRequest().permitAll();
+
+        http.csrf().disable();
+        http.sessionManagement().sessionCreationPolicy(STATELESS);
+
+        //http.formLogin();
+        //change it after add roles
+        //http.authorizeRequests().antMatchers("GET","/api/user/**").hasAnyAuthority("ROLE_USER");
+        //http.authorizeRequests().antMatchers("GET","/api/user/**").hasAnyAuthority("ROLE_ADMIN");
+
+        http.authorizeRequests().anyRequest().permitAll();
+        http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
 
     }
 
