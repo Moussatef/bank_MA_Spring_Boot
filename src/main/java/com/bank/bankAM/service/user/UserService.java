@@ -87,8 +87,16 @@ public class UserService implements IUserService , UserDetailsService {
     }
 
     @Override
+    public User getUserByUsername(String username) {
+         Optional<User> userOptional =  userRepository.findUserName(username);
+        User user = userOptional.orElse(null);
+        return user;
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+
         if (userRepository.findUserName(username).isPresent()){
             User user = userRepository.findUserName(username).get();
             List<UserMemberShip> userMemberShip = userMemberShipRepository.findUserMemberShipByUserId(user);

@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration @EnableWebSecurity @RequiredArgsConstructor
@@ -30,16 +31,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
+        customAuthenticationFilter.setFilterProcessesUrl("/api/login");
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
-
-        //http.formLogin();
-        //change it after add roles
-        //http.authorizeRequests().antMatchers("GET","/api/user/**").hasAnyAuthority("ROLE_USER");
+        http.authorizeRequests().antMatchers("/api/login/**").permitAll();
+        http.authorizeRequests().antMatchers(GET,"/api/users/**").hasAnyAuthority("DSS");
         //http.authorizeRequests().antMatchers("GET","/api/user/**").hasAnyAuthority("ROLE_ADMIN");
-
-        http.authorizeRequests().anyRequest().permitAll();
-        http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
+        http.authorizeRequests().anyRequest().authenticated();
+        http.addFilter(customAuthenticationFilter);
+        http.addFilterBefore(new CustomAuthorisationFilter(),UsernamePasswordAuthenticationFilter.class);
 
     }
 

@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,10 +19,14 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import static java.util.Arrays.stream;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Slf4j
 public class CustomAuthorisationFilter extends OncePerRequestFilter {
@@ -34,7 +39,7 @@ public class CustomAuthorisationFilter extends OncePerRequestFilter {
             if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
                 try {
                     String token = authorizationHeader.substring("Bearer ".length());
-                    Algorithm algorithm = Algorithm.HMAC256("secret".getBytes(StandardCharsets.UTF_8));
+                    Algorithm algorithm = Algorithm.HMAC256("moussatef".getBytes(StandardCharsets.UTF_8));
                     JWTVerifier verifier = JWT.require(algorithm).build();
                     DecodedJWT decodedJWT = verifier.verify(token);
                     String username = decodedJWT.getSubject();
@@ -49,12 +54,19 @@ public class CustomAuthorisationFilter extends OncePerRequestFilter {
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                     filterChain.doFilter(request, response);
                 } catch (Exception exception) {
+
                     log.error("Error logging in : {}", exception.getMessage());
                     response.setStatus(FORBIDDEN.value());
                     response.setHeader("error", exception.getMessage());
-                    response.sendError(FORBIDDEN.value());
+                   // response.sendError(FORBIDDEN.value());
+                    Map<String,String> error = new HashMap<>();
+                    error.put("error_message",exception.getMessage());
+
+                    response.setContentType(APPLICATION_JSON_VALUE);
+                    new ObjectMapper().writeValue(response.getOutputStream(),error);
                 }
             } else {
+                log.error("errrrrrrr");
                 filterChain.doFilter(request, response);
             }
         }

@@ -11,4 +11,6 @@ public interface IUserService {
     UserDTO addNewUser(UserDTO user);
     void deleteUser(Long userId);
     UserDTO updateUser(long id , UserDTO userDTO);
+
+    User getUserByUsername(String username);
 }
