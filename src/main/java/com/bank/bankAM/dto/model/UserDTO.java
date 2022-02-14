@@ -2,6 +2,7 @@ package com.bank.bankAM.dto.model;
 
 import com.bank.bankAM.entity.User;
 import com.bank.bankAM.entity.UserContactInfo;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,9 +16,11 @@ import java.time.LocalDate;
 @ToString
 public class UserDTO {
 
+    private long id;
     private UserContactInfo userContactInfo;
     private boolean enabled;
     private String userName;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private String firstName;
     private String lastName;

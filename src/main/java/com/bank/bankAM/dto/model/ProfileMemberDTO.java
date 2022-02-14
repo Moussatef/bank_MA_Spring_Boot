@@ -16,6 +16,7 @@ import lombok.ToString;
 @ToString
 public class ProfileMemberDTO {
 
+    private long id;
     private Profile profileId;
     private User userId;
     private Group groupId;

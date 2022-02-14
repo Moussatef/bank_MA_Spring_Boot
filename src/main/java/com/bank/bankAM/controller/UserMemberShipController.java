@@ -20,21 +20,25 @@ public class UserMemberShipController {
     }
 
     @GetMapping
+
     public List<UserMemberShip> getAllUserMemberShip(){
         return userMemberShipService.userMemberShipRepositoryList();
     }
 
     @GetMapping(path = "/get/{id}")
+
     public UserMemberShipDTO getUserMemberShip(@PathVariable("id") long id){
         return userMemberShipService.getUserMemberShip(id);
     }
 
     @PostMapping
+
     public UserMemberShipDTO addNewUserMembership(@RequestBody UserMemberShipDTO userMemberShip){
         return userMemberShipService.addNewUserMemberShip(userMemberShip);
     }
 
     @DeleteMapping(path = "{id}")
+
     public void deleteUserMembership(@PathVariable("id") Long id){
         userMemberShipService.deleteUserMember(id);
     }

@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @ToString
 public class RoleDTO {
 
+    private long id;
     private String name;
     private String displayName;
     private String description;

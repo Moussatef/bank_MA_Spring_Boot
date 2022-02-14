@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @ToString
 public class GroupDTO {
 
+    private long id;
     private String name;
     private String parentPath;
     private String displayName;

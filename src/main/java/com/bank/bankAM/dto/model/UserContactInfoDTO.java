@@ -14,6 +14,7 @@ import lombok.ToString;
 public class UserContactInfoDTO {
 
 
+    private long id;
     private User userId;
     private String email;
     private String phone;

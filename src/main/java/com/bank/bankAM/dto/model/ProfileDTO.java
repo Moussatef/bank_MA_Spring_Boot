@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @ToString
 public class ProfileDTO {
 
+    private long id;
     private boolean isDefault;
     private String name ;
     private String description;

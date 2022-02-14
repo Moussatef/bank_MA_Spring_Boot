@@ -82,8 +82,27 @@ public class UserService implements IUserService , UserDetailsService {
     }
 
     @Override
-    public UserDTO updateUser(long id, UserDTO userDTO) {
-        return null;
+    public UserDTO updateUser( UserDTO user) {
+        User existingUser = userRepository.findById(user.getId()).orElse(null);
+        if(existingUser !=null) {
+
+            User getManageruserid = userMapping.convertToEntity(this.getUser(user.getManagerUserId().getId()),User.class);
+            User getCreatedBy = userMapping.convertToEntity(this.getUser(user.getCreatedBy().getId()),User.class);
+
+            existingUser.setEnabled(user.isEnabled());
+            existingUser.setUserName(user.getUserName());
+            existingUser.setPassword(user.getPassword());
+            existingUser.setFirstName(user.getFirstName());
+            existingUser.setLastName(user.getLastName());
+            existingUser.setTitle(user.getTitle());
+            existingUser.setJobTitle(user.getJobTitle());
+            existingUser.setManagerUserId(getManageruserid);
+            existingUser.setCreatedBy(getCreatedBy);
+            log.info("Update user {}",existingUser.getUserName());
+        }
+        User userUpdated = userRepository.save(existingUser);
+
+        return userMapping.convertToDto(userUpdated,UserDTO.class);
     }
 
     @Override
@@ -111,6 +130,7 @@ public class UserService implements IUserService , UserDetailsService {
     }
 
     public List<UserMemberShip> testList(String username){
+
         log.info(username);
         User user = userRepository.findUserName(username).orElse(null);
         //List<UserMemberShip> userMemberShipList = userMemberShipRepository

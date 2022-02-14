@@ -10,7 +10,7 @@ public interface IUserService {
     UserDTO getUser(long id);
     UserDTO addNewUser(UserDTO user);
     void deleteUser(Long userId);
-    UserDTO updateUser(long id , UserDTO userDTO);
+    UserDTO updateUser( UserDTO userDTO);
 
     User getUserByUsername(String username);
 }

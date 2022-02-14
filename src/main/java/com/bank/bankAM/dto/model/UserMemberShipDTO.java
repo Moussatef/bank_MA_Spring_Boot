@@ -16,6 +16,7 @@ import java.time.LocalDate;
 @ToString
 public class UserMemberShipDTO {
 
+    private long id;
     private User userId;
     private Role roleId;
     private Group groupId;

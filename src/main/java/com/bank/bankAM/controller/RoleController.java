@@ -24,10 +24,12 @@ public class RoleController {
         return roleService.roleList();
     }
     @GetMapping(path = "/get/{id}")
+
     public RoleDTO getRole(@PathVariable("id") long id){
         return roleService.getRole(id);
     }
     @PostMapping
+
     public RoleDTO addNewRole(@RequestBody RoleDTO role){
        return roleService.addNewRole(role);
     }
