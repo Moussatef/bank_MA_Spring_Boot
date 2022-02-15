@@ -1,16 +1,11 @@
 package com.bank.bankAM.service.user;
 
 import com.bank.bankAM.dto.model.RejetDTO;
-import com.bank.bankAM.dto.model.RoleDTO;
-import com.bank.bankAM.dto.model.UserDTO;
 import com.bank.bankAM.dto.service.IMapClassWithDto;
 import com.bank.bankAM.entity.Rejet;
-import com.bank.bankAM.entity.Role;
-import com.bank.bankAM.entity.User;
 import com.bank.bankAM.repository.RejetRepository;
 import com.bank.bankAM.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +35,7 @@ public class RejetService implements IRejetService {
     @Override
     public RejetDTO addNewRejet(RejetDTO rejet) {
         Rejet rejet_convert = rejetMapper.convertToEntity(rejet,Rejet.class);
+        System.out.println(rejet_convert);
         //UserDTO userDTO = rejetMapper.convertToDto() rejet_new.getTakenBy()
         return rejetMapper.convertToDto( rejetRepository.save(rejet_convert),RejetDTO.class);
     }
@@ -72,10 +68,10 @@ public class RejetService implements IRejetService {
             rejet.setClientCode(rejetDto.getClientCode());
             rejet.setGravity(rejetDto.getGravity());
             rejet.setZoneCode(rejetDto.getZoneCode());
-            rejet.setIsWrongField(rejetDto.isWrongField());
+            rejet.setIsWrongField(rejetDto.getIsWrongField());
             rejet.setErrorCode(rejetDto.getErrorCode());
             rejet.setErrorLabel(rejetDto.getErrorLabel());
-            rejet.setIsRequestTaken(rejetDto.isRequestTaken());
+            rejet.setIsRequestTaken(rejetDto.getIsRequestTaken());
             rejet.setActionDetail(rejetDto.getActionDetail());
             rejet.setTakenBy(rejetDto.getTakenBy());
             Rejet rejetUpdated = rejetRepository.save(rejet);

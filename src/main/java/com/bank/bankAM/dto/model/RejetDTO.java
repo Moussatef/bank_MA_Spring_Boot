@@ -22,10 +22,10 @@ public class RejetDTO {
     private String clientCode;
     private String gravity;
     private String zoneCode;
-    private boolean isWrongField;
+    private Boolean isWrongField;
     private String errorCode;
     private String errorLabel;
-    private boolean isRequestTaken;
+    private Boolean isRequestTaken;
     private String actionDetail;
     private String file;
     private User TakenBy;
