@@ -48,7 +48,15 @@ public class Group implements Serializable {
     @Column(name = "lastupdate")
     private LocalDate lastUpdate;
 
- //   @OneToMany()
+    public Group(String name, String parentPath, String displayName, String description, User createdBy) {
+        this.name = name;
+        this.parentPath = parentPath;
+        this.displayName = displayName;
+        this.description = description;
+        this.createdBy = createdBy;
+    }
+
+    //   @OneToMany()
  //   private List<UserMemberShip> userMemberShip;
 
 

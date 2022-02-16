@@ -66,7 +66,7 @@ public class CustomAuthorisationFilter extends OncePerRequestFilter {
                     new ObjectMapper().writeValue(response.getOutputStream(),error);
                 }
             } else {
-                log.error("errrrrrrr");
+                log.error("Authorisation Error");
                 filterChain.doFilter(request, response);
             }
         }

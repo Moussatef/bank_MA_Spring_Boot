@@ -38,13 +38,13 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo(){
         return new ApiInfo(
-                "BAMCo Report API",
+                "bank_MA Report API",
                 "An API for workflow management.",
                 "1.0",
                 "Free to use",
-                new Contact("Med Idbihi", "https://github.com/Mohamedidbihi","https://github.com/Mohamedidbihi"),
+                new Contact("Moussatef Othman", "https://github.com/Moussatef","otman.moussetaf@gmail.com"),
                 "Free License",
-                "https://github.com/Mohamedidbihi/BAMCo",
+                "https://github.com/Moussatef/bank_MA_Spring_Boot",
                 Collections.emptyList()
         );
     }

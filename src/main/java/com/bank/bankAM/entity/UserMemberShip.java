@@ -54,4 +54,11 @@ public class UserMemberShip  implements Serializable {
         this.assignedBy = assignedBy;
         this.assignedDate = assignedDate;
     }
+
+    public UserMemberShip(User userId, Role roleId, Group groupId, User assignedBy) {
+        this.userId = userId;
+        this.roleId = roleId;
+        this.groupId = groupId;
+        this.assignedBy = assignedBy;
+    }
 }

@@ -73,4 +73,16 @@ public class User implements Serializable {
     @OneToMany(targetEntity = Rejet.class, mappedBy = "TakenBy", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Rejet> rejets;
 
+
+    public User(boolean enabled, String userName, String password, String firstName, String lastName, String title, String jobTitle, User managerUserId, User createdBy) {
+        this.enabled = enabled;
+        this.userName = userName;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.title = title;
+        this.jobTitle = jobTitle;
+        this.managerUserId = managerUserId;
+        this.createdBy = createdBy;
+    }
 }

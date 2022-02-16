@@ -1,5 +1,6 @@
 package com.bank.bankAM.entity;
 
+import com.bank.bankAM.enums.RoleEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -43,6 +44,13 @@ public class Role implements Serializable {
 
     @UpdateTimestamp
     private LocalDate lastUpdate;
+
+    public Role(String roleSuperAdmin, String roleSuperAdmin1, String description, User user) {
+        this.name = roleSuperAdmin;
+        this.displayName=roleSuperAdmin1;
+        this.description = description;
+        this.createdBy =user;
+    }
 
     //@OneToMany
     //private List<UserMemberShip> userMemberShip;
