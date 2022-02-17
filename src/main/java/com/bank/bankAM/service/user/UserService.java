@@ -13,6 +13,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -108,8 +109,28 @@ public class UserService implements IUserService , UserDetailsService {
     @Override
     public User getUserByUsername(String username) {
          Optional<User> userOptional =  userRepository.findUserName(username);
-        User user = userOptional.orElse(null);
-        return user;
+        return userOptional.orElse(null);
+    }
+
+    @Override
+    public void updatePassword(String oldPassword, String newPassword,String confirmPassword, Long id) {
+        if (newPassword.equals(confirmPassword)){
+            User user = userMapping.convertToEntity(this.getUser(id),User.class) ;
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            String hashedPassword = passwordEncoder.encode(newPassword);
+
+            if(encoder.matches(oldPassword, user.getPassword())){
+                user.setPassword(hashedPassword);
+
+            }else
+                log.warn("old password is not correct");
+
+        }else{
+            log.warn("password is not the same !!");
+        }
+
+
+
     }
 
     @Override
@@ -129,11 +150,5 @@ public class UserService implements IUserService , UserDetailsService {
 
     }
 
-    public List<UserMemberShip> testList(String username){
 
-        log.info(username);
-        User user = userRepository.findUserName(username).orElse(null);
-        //List<UserMemberShip> userMemberShipList = userMemberShipRepository
-        return userMemberShipRepository.findUserMemberShipByUserId(user);
-    }
 }
