@@ -5,8 +5,10 @@ import com.bank.bankAM.service.user.RejetService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -40,9 +42,9 @@ public class RejetController {
             value = "Add new rejet ",
             notes = "Add new rejet to BankMA database"
     )
-    @PostMapping(path = "/add")
-    public ResponseEntity<RejetDTO> addNewRejet(@RequestBody RejetDTO rejet){
-        RejetDTO newRejet =  rejetService.addNewRejet(rejet);
+    @PostMapping(path = "/add", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE })
+    public ResponseEntity<RejetDTO> addNewRejet(@RequestPart RejetDTO rejet, @RequestPart("file") MultipartFile file){
+        RejetDTO newRejet =  rejetService.addNewRejet(rejet,file);
         if(newRejet != null)
             return ResponseEntity.ok().body(newRejet);
         return ResponseEntity.status(400).build();

@@ -8,7 +8,15 @@ import com.bank.bankAM.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 @Service @RequiredArgsConstructor
@@ -33,9 +41,18 @@ public class RejetService implements IRejetService {
     }
 
     @Override
-    public RejetDTO addNewRejet(RejetDTO rejet) {
+    public RejetDTO addNewRejet(RejetDTO rejet, MultipartFile file) {
         Rejet rejet_convert = rejetMapper.convertToEntity(rejet,Rejet.class);
         System.out.println(rejet_convert);
+
+        try{
+            String filePath = this.saveFile(rejet.getClientCode(), file);
+            System.out.println("************************** File Path : " + filePath);
+            rejet_convert.setFile(filePath);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
         //UserDTO userDTO = rejetMapper.convertToDto() rejet_new.getTakenBy()
         return rejetMapper.convertToDto( rejetRepository.save(rejet_convert),RejetDTO.class);
     }
@@ -79,5 +96,29 @@ public class RejetService implements IRejetService {
         }
         return null;
 
+    }
+
+
+    public String saveFile(String clientCode, MultipartFile file) throws IOException {
+
+        byte[] fileBytes = file.getBytes();
+
+
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMddhhmmss");
+
+        String date = LocalDateTime.now().format(format);
+
+        String fileName = file.getOriginalFilename();
+        String fileExtension = fileName.substring(fileName.lastIndexOf("."));
+
+        String fileNewName = clientCode + "_" + date + fileExtension;
+
+        Path path = Paths.get("C:\\Users\\otman\\Documents\\BAMCo\\" + fileNewName);
+
+        Files.write(path, fileBytes);
+
+        //String filePath = "C:\\" + path;
+
+        return path.toString();
     }
 }

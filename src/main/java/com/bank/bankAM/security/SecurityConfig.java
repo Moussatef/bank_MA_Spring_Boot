@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests().antMatchers("/api/login/**","/api/user/changePassword","/v2/api-docs/**", "/swagger-resources/configuration/ui/**", "/swagger-resources", "/swagger-resources/configuration/security", "/swagger-ui.html", "/webjars/").permitAll();
 
-        http.authorizeRequests().antMatchers(GET,"/api/users/**").hasAnyAuthority("DSS");
+        http.authorizeRequests().antMatchers(GET,"/api/users/**").hasAnyAuthority("ROLE_SUPER_ADMIN");
         //http.authorizeRequests().antMatchers(POST,"/api/users/**").permitAll();
         //http.authorizeRequests().antMatchers("GET","/api/user/**").hasAnyAuthority("ROLE_ADMIN");
         http.authorizeRequests().anyRequest().authenticated();
