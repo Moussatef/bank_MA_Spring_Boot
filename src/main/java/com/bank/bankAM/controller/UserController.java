@@ -1,7 +1,7 @@
 package com.bank.bankAM.controller;
 
+import com.bank.bankAM.dto.model.UpdatePassword;
 import com.bank.bankAM.dto.model.UserDTO;
-import com.bank.bankAM.entity.UserMemberShip;
 import com.bank.bankAM.service.user.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -12,11 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 @RestController
 @RequestMapping(path = "/api/user")
-@Api(tags = "Users", description = "Users Collection")
+@Api(tags = "Users")
 public class UserController {
-
     private final UserService userService;
-
 
     @Autowired
     public UserController(UserService userService) {
@@ -69,5 +67,10 @@ public class UserController {
     @PutMapping("/update")
     public UserDTO updtaeUser(@RequestBody UserDTO user){
         return userService.updateUser(user);
+    }
+
+    @PostMapping(path = "/password-update")
+    public void changePassword(@RequestBody UpdatePassword up){
+        userService.updatePassword(up.getOldPassword(), up.getNewPassword(), up.getConfirmPassword(), up.getId());
     }
 }

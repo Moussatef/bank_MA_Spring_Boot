@@ -1,6 +1,8 @@
 package com.bank.bankAM.controller;
 
 import com.bank.bankAM.dto.model.RejetDTO;
+import com.bank.bankAM.rejetST.StatistiqueByDate;
+import com.bank.bankAM.rejetST.StatistiqueRejetByTakenBy;
 import com.bank.bankAM.service.user.RejetService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -69,4 +71,13 @@ public class RejetController {
         return rejetService.updateRejet(rejetDTO);
     }
 
+    @GetMapping(path = "/rejet-statistique")
+    public List<StatistiqueByDate> getStatistiqueByDate(){
+        return rejetService.rejetByDate();
+    }
+
+    @GetMapping(path = "/rejet-statistique-takenby")
+    public List<StatistiqueRejetByTakenBy> getStatistiqueByTakenBy(){
+        return rejetService.rejetByTakenBy();
+    }
 }

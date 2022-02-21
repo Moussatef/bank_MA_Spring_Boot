@@ -121,6 +121,8 @@ public class UserService implements IUserService , UserDetailsService {
 
             if(encoder.matches(oldPassword, user.getPassword())){
                 user.setPassword(hashedPassword);
+                userRepository.save(user);
+                log.info("{}/{}",oldPassword,newPassword);
 
             }else
                 log.warn("old password is not correct");

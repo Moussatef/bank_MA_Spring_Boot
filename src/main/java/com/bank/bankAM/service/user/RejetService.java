@@ -3,6 +3,8 @@ package com.bank.bankAM.service.user;
 import com.bank.bankAM.dto.model.RejetDTO;
 import com.bank.bankAM.dto.service.IMapClassWithDto;
 import com.bank.bankAM.entity.Rejet;
+import com.bank.bankAM.rejetST.StatistiqueByDate;
+import com.bank.bankAM.rejetST.StatistiqueRejetByTakenBy;
 import com.bank.bankAM.repository.RejetRepository;
 import com.bank.bankAM.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -120,5 +122,13 @@ public class RejetService implements IRejetService {
         //String filePath = "C:\\" + path;
 
         return path.toString();
+    }
+
+    public List<StatistiqueByDate> rejetByDate(){
+        return rejetRepository.statistiquesRejetByDate();
+    }
+
+    public List<StatistiqueRejetByTakenBy> rejetByTakenBy(){
+        return rejetRepository.statistiqueByTakenBy();
     }
 }
