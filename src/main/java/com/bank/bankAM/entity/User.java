@@ -85,4 +85,19 @@ public class User implements Serializable {
         this.managerUserId = managerUserId;
         this.createdBy = createdBy;
     }
+
+    public User(long id, boolean enabled, String userName, String password, String firstName, String lastName, String title, String jobTitle, User managerUserId, User createdBy) {
+        this.id = id;
+        this.enabled = enabled;
+        this.userName = userName;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.title = title;
+        this.jobTitle = jobTitle;
+        this.managerUserId = managerUserId;
+        this.createdBy = createdBy;
+    }
+
+
 }

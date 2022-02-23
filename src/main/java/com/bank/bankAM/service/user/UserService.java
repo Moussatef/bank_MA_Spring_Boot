@@ -6,6 +6,7 @@ import com.bank.bankAM.entity.User;
 import com.bank.bankAM.entity.UserMemberShip;
 import com.bank.bankAM.repository.UserMemberShipRepository;
 import com.bank.bankAM.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ public class UserService implements IUserService , UserDetailsService {
 
     @Autowired
     IMapClassWithDto<User, UserDTO> userMapping;
+
+
 
     @Override
     public List<UserDTO> getAllUsers(){
